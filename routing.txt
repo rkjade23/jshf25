@@ -1,0 +1,53 @@
+loadWritersMW: írók listájának betöltése
+loadBooksMW: könyvek listájának betöltése
+
+deleteWriterMW: törli az írót, átirányít a /-re
+deleteBookMW: törli a könyvet, átirányít a writer/:id/books-ra
+
+loadWriterMW: író betöltése, ha nem létezik redirect /-re, next
+loadBookMW: könyv betöltése, ha nem létezik redirect /writer/:id/books-ra, next
+
+saveWriterMW: író mentése
+saveBookMW: könyv mentése
+
+renderMW: html megjelenítése
+
+Method
+
+GET /                       táblázat az írókról
+    loadWritersMW
+    renderMW(index.html)
+
+GET /writer/edit/:id        id-val ellátott író szerkesztő form megjelenítése
+    loadWriterMW
+    renderMW(writeredit.html)
+POST /writer/edit/:id       szerkesztő form beküldésének értelmezése
+    saveWriterMW
+
+GET /writer/new             új író felvételéhez form megjelenítése
+    renderMW(writernew.html)
+POST /writer/new            új író felvételének értelmezése
+    saveWriterMW
+
+GET /writer/:id/books       író könyveinek megjelenítése
+    loadBooksMW
+    renderMW(books.html)
+
+GET /writer/delete/:id      író törlése
+    loadWriterMW
+    deleteWriterMW
+
+GET /book/edit/:id          id-val ellátott könyv szerkesztése
+    loadBookMW
+    renderMW(bookedit.html)
+POST /book/edit/:id         szerkesztő form beküldésének értelmezése
+    saveBookMW
+
+GET /book/new               új könyv felvételéhez szükséges form megjelenítése
+    renderMW(booknew.html)
+POST /book/new              új könyv felvételéhez szükséges form beküldésének értelmezése
+    saveBookMW
+
+GET /book/delete/:id        könyv törlése
+    loadBookMW
+    deleteBookMW           
